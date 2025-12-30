@@ -10,26 +10,27 @@
 </head>
 
 <body>
-    <nav>
+    <header>
         <div class="logo">RAWABI</div>
         <ul class="nav-links">
             <li><a onclick="showSection('home')">Home</a></li>
             <li><a onclick="showSection('store')">Store</a></li>
+            <li><a onclick="showSection('location')">Location</a></li>
             <li><a onclick="showSection('admin')">Admin</a></li>
         </ul>
-        <div style="display: flex; gap: 1rem; align-items: center;">
-            <span id="user-display"></span>
-            <button class="btn btn-outline" style="width: auto; padding: 0.5rem 1rem;" onclick="showSection('auth')"
+        <div style="display: flex; gap: 1.5rem; align-items: center;">
+            <span id="user-display" style="font-weight: 500;"></span>
+            <button class="btn btn-outline" style="width: auto; padding: 0.5rem 1.5rem;" onclick="showSection('auth')"
                 id="login-btn">Login</button>
-            <button class="btn btn-outline" style="width: auto; padding: 0.5rem 1rem; display: none;" onclick="logout()"
-                id="logout-btn">Logout</button>
-            <a onclick="showSection('cart')" style="cursor: pointer; position: relative;">
+            <button class="btn btn-outline" style="width: auto; padding: 0.5rem 1.5rem; display: none;"
+                onclick="logout()" id="logout-btn">Logout</button>
+            <a onclick="showSection('cart')" style="cursor: pointer; position: relative; font-size: 1.2rem;">
                 <i class="fas fa-shopping-cart"></i>
                 <span id="cart-count"
-                    style="position: absolute; top: -10px; right: -10px; background: var(--accent-color); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem;">0</span>
+                    style="position: absolute; top: -10px; right: -10px; background: var(--accent-color); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; font-weight: bold;">0</span>
             </a>
         </div>
-    </nav>
+    </header>
 
     <main>
         <section id="home" class="section active">
@@ -150,6 +151,35 @@
                 </div>
             </div>
         </section>
+        <section id="location" class="section">
+            <div class="glass location-card">
+                <i class="fas fa-map-marker-alt"
+                    style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1.5rem;"></i>
+                <h2>Location & IP Discovery</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Discover your current geographical
+                    coordinates and public IP address.</p>
+
+                <button class="btn btn-primary" style="width: auto; padding: 1rem 2rem;" onclick="detectLocation()">
+                    <i class="fas fa-crosshairs" style="margin-right: 0.5rem;"></i> Detect My Location
+                </button>
+
+                <div id="location-display" class="info-display" style="display: none;">
+                    <div class="info-item">
+                        <label>Latitude</label>
+                        <span id="lat-val">-</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Longitude</label>
+                        <span id="lon-val">-</span>
+                    </div>
+                    <div class="info-item" style="grid-column: span 2;">
+                        <label>Public IP Address</label>
+                        <span id="ip-val">Detecting...</span>
+                    </div>
+                </div>
+                <p id="location-error" style="color: #ef4444; margin-top: 1rem; display: none; font-size: 0.9rem;"></p>
+            </div>
+        </section>
     </main>
 
     <div class="modal-overlay" id="modal">
@@ -175,6 +205,37 @@
             <button class="btn btn-outline" style="margin-top: 1rem;" onclick="closeModal()">Close</button>
         </div>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>RAWABI</h3>
+                <p>Premium quality products for a modern lifestyle. We bring elegance to your doorstep.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a onclick="showSection('home')">Home</a>
+                <a onclick="showSection('store')">Shop</a>
+                <a onclick="showSection('location')">Location</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> info@rawabi.com</p>
+                <p><i class="fas fa-phone"></i> +966 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Rawabi Store. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

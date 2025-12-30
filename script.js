@@ -244,10 +244,48 @@ function editE(idx) {
 
 function delE(idx) { employees.splice(idx, 1); sync(); renderAll(); }
 
+// --- Location Logic ---
+async function detectLocation() {
+    const display = document.getElementById('location-display');
+    const latSpan = document.getElementById('lat-val');
+    const lonSpan = document.getElementById('lon-val');
+    const ipSpan = document.getElementById('ip-val');
+    const errPanel = document.getElementById('location-error');
+
+    display.style.display = 'grid';
+    errPanel.style.display = 'none';
+    ipSpan.innerText = 'Detecting...';
+
+    // Get IP
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        ipSpan.innerText = data.ip;
+    } catch (e) {
+        ipSpan.innerText = 'Error fetching IP';
+    }
+
+    // Get GPS
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            latSpan.innerText = pos.coords.latitude.toFixed(6);
+            lonSpan.innerText = pos.coords.longitude.toFixed(6);
+        }, (err) => {
+            errPanel.innerText = `GPS Error: ${err.message}`;
+            errPanel.style.display = 'block';
+            latSpan.innerText = 'Denied';
+            lonSpan.innerText = 'Denied';
+        });
+    } else {
+        errPanel.innerText = 'Geolocation is not supported by your browser.';
+        errPanel.style.display = 'block';
+    }
+}
+
 // Exports
 window.showSection = showSection; window.toggleAuth = toggleAuth; window.register = register;
 window.login = login; window.logout = logout; window.buy = buy; window.unbuy = unbuy;
 window.checkout = checkout; window.switchAdmin = switchAdmin; window.openModal = openModal;
 window.closeModal = closeModal; window.saveProduct = saveProduct; window.editP = editP;
 window.delP = delP; window.saveEmployee = saveEmployee; window.editE = editE; window.delE = delE;
-window.renderStore = renderStore;
+window.renderStore = renderStore; window.detectLocation = detectLocation;
